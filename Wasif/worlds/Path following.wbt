@@ -1,0 +1,216 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/balls/protos/FifaSoccerBall.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/obstacles/protos/OilBarrel.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/toys/protos/RubberDuck.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/samples/contests/robocup/protos/RobocupSoccerField.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.5773502691896258 0.5773502691896258 0.5773502691896258 2.0944
+  position -0.0015648783779054812 -1.2423989430437005e-05 10.658786614673382
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+OilBarrel {
+  translation 0.37 0.32 0.125
+  height 0.3
+  radius 0.1
+}
+Robot {
+  translation -0.87 0.13 0
+  children [
+    Pose {
+      translation 0 0 0.0415
+      rotation 0 0 1 -1.570796
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.0820075 0.364731 0.8
+            roughness 1
+            metalness 0
+          }
+          geometry DEF BODY Cylinder {
+            height 0.08
+            radius 0.045
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor 0 0 0.025
+      }
+      device [
+        RotationalMotor {
+          name "left wheel motor"
+          consumptionFactor 70
+        }
+        PositionSensor {
+          name "left wheel sensor"
+        }
+      ]
+      endPoint Solid {
+        translation 0 0.044999999999999984 0.025
+        rotation 0.1344869543855967 -0.13448695438559677 -0.9817466670176033 1.589217
+        children [
+          DEF WHEEL Pose {
+            rotation 0.577656895078166 0.5771968951617173 -0.5771968951617173 -2.093935
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 1 0 0
+                  roughness 1
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.01
+                  radius 0.025
+                }
+              }
+            ]
+          }
+        ]
+        name "left wheel"
+        boundingObject USE WHEEL
+        physics DEF PHYSICS_WHEEL Physics {
+          density -1
+          mass 0.05
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor 0 0 0.025
+      }
+      device [
+        RotationalMotor {
+          name "right wheel motor"
+          consumptionFactor 70
+        }
+        PositionSensor {
+          name "right wheel sensor"
+        }
+      ]
+      endPoint Solid {
+        translation 0 -0.044999999999999984 0.025
+        rotation -0.06235700094427208 0.062357000944272045 -0.9961040150840031 1.5747
+        children [
+          USE WHEEL
+        ]
+        name "right wheel"
+        boundingObject USE WHEEL
+        physics USE PHYSICS_WHEEL
+      }
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.8 0.8 0.8
+        baseColorMap ImageTexture {
+          url [
+            "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/samples/devices/worlds/textures/mybot.png"
+          ]
+        }
+        roughness 0.5
+        metalness 0
+      }
+      geometry IndexedFaceSet {
+        coord Coordinate {
+          point [
+            -0.041 0.015 0.038
+            -0.041 0.015 0.023
+            -0.0455 0 0.023
+            -0.041 -0.015 0.023
+            -0.041 -0.015 0.038
+            -0.0455 0 0.038
+          ]
+        }
+        texCoord TextureCoordinate {
+          point [
+            0 0
+            0.5 0
+            1 0
+            1 1
+            0.5 1
+            0 1
+          ]
+        }
+        coordIndex [
+          0, 1, 2, 5, -1, 5, 2, 3, 4, -1
+        ]
+        texCoordIndex [
+          5, 0, 1, 4, -1, 4, 1, 2, 3, -1
+        ]
+        creaseAngle 0.9
+      }
+    }
+    Camera {
+      translation 0.04 0 0.0915
+      children [
+        Pose {
+          translation -0.015 0 0
+          rotation -0.5771968951617173 -0.577656895078166 -0.5771968951617173 -2.093935
+          children [
+            Shape {
+              appearance PBRAppearance {
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.03
+                radius 0.01
+              }
+            }
+          ]
+        }
+      ]
+      fieldOfView 0.5
+      width 256
+      height 128
+      antiAliasing TRUE
+      recognition Recognition {
+        maxRange 0.15
+        frameColor 0.929412 0.831373 0
+        frameThickness 3
+      }
+    }
+  ]
+  name "MyBot"
+  boundingObject Pose {
+    translation 0 0 0.0415
+    rotation 0 0 1 -1.570796
+    children [
+      USE BODY
+    ]
+  }
+  physics Physics {
+    density -1
+    mass 0.5
+  }
+  controller "path_controller"
+}
+FifaSoccerBall {
+  translation 2.07 -0.45 0.049996
+  rotation 0 1 0 1.5708003061004252
+  size 1
+}
+RubberDuck {
+  translation -0.42 0.08 0.02
+  rotation 0 0 1 3.14159
+  scale 1.5
+}
+RubberDuck {
+  translation 1.06033 -0.35 0.030437
+  rotation 0 0 1 3.14159
+  name "rubber duck(1)"
+  scale 1.5
+}
+RobocupSoccerField {
+}
